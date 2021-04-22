@@ -55,7 +55,9 @@ router.post(
         check('password', 'Введите пароль').exists()
     ],
     async (req, res) => {
+        debugger
         try {
+            debugger
             const errors = validationResult(req)
 
             if (!errors.isEmpty()) {
@@ -90,6 +92,7 @@ router.post(
             res.json({token, userId: user.id})
 
         } catch (e) {
+            debugger
             res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
         }
     })
