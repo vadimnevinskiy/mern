@@ -55,9 +55,7 @@ router.post(
         check('password', 'Введите пароль').exists()
     ],
     async (req, res) => {
-        debugger
         try {
-            debugger
             const errors = validationResult(req)
 
             if (!errors.isEmpty()) {
@@ -69,8 +67,8 @@ router.post(
 
 
             const {email, password} = req.body
-
-            const user = await User.FindOne({email})
+            debugger
+            const user = await User.findOne({email})
 
             if(!user) {
                 return res.status(400).json({message: 'Пользователь не найден'})
