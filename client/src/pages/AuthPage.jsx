@@ -1,38 +1,52 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useHttp} from "../hooks/http.hook";
 import {useMessage} from "../hooks/message.hook";
+import {AuthContext} from "../context/AuthContext";
 
 export const AuthPage = () => {
+    const auth = useContext(AuthContext) // All data from App.js <AuthContext.Provider>
     const {loading, request, error, clearError} = useHttp()
     const [form, setForm] = useState({
         email: '', password: ''
     })
 
+    // Call useMessage for notification users
+    // Depends of error, message, clearError
     let message = useMessage()
     useEffect(() => {
         message(error)
         clearError()
     }, [error, message, clearError])
 
+
+    // Calls a event changeHandler
     const changeHandler = (event) => {
+        // Set local state 'form' with values of fields by input name and input value
+        // In our app it name="email" and name="password"
         setForm({ ...form, [event.target.name]: event.target.value })
     }
 
+
+
+
+    // Register new user
     const registerHandler = async () => {
+        //Try to register
         try {
-            const data = await request('/api/auth/register', 'POST', {...form})
-            console.log('Data: ', data)
-            message(data.message)
+            const data = await request('/api/auth/register', 'POST', {...form}) //Request to server with parametres Url, Method, form (body of form = email: <email>, password: <password>)
+            message(data.message) //Tooltip for user notification = message.hook.js =  window.M.toast({html: text})
         } catch (e) {
 
         }
     }
 
+    // Login
     const loginHandler = async () => {
+        // Try to login
         try {
-            const data = await request('/api/auth/login', 'POST', {...form})
-            console.log('Data: ', data)
-            message(data.message)
+            const data = await request('/api/auth/login', 'POST', {...form}) // Request to server with parametres Url, Method, form (body of form = email: <email>, password: <password>)
+            message(data.message) // Tooltip for user notification = message.hook.js =  window.M.toast({html: text})
+            auth.login(data.token, data.userId)
         } catch (e) {
 
         }

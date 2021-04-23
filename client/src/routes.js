@@ -5,10 +5,16 @@ import {CreatePage} from "./pages/CreatePage";
 import {DetailPage} from "./pages/DetailPage";
 import {AuthPage} from "./pages/AuthPage";
 
-
+//Routes
 export const useRoutes = (isAuthenticated) => {
     if(isAuthenticated) {
+        //if isAuthenticated is true, then display the components
         return (
+            //Check route
+            // If route '/links' will display <LinksPage />
+            // If route '/create' will display <CreatePage />
+            // If route '/detail' will display <DetailPage />
+            // For default route will redirect to <CreatePage />
             <Switch>
                 <Route path='/links' exact>
                     <LinksPage />
@@ -23,7 +29,8 @@ export const useRoutes = (isAuthenticated) => {
             </Switch>
         )
     }
-
+    //if isAuthenticated is false, then display the components <AuthPage />
+    //By default redirect to <AuthPage />
     return (
         <Switch>
             <Route path='/' exact>
