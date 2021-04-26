@@ -6,6 +6,7 @@ const app =  express() //Функция express() - будующий серве�
 app.use(express.json({ extended: true }))
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/links', require('./routes/link.routes'))
+app.use('/t', require('./routes/redirect.routes'))
 
 const PORT = config.get('port') || 5000 //Создали переменную PORT и если не найден в файле default.json то  по умолчанию порт 5000
 
