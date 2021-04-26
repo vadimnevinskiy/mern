@@ -18,6 +18,9 @@ export const AuthPage = () => {
         clearError()
     }, [error, message, clearError])
 
+    useEffect(() => {
+        window.M.updateTextFields()
+    }, [])
 
     // Calls a event changeHandler
     const changeHandler = (event) => {

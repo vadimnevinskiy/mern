@@ -15,6 +15,7 @@ router.post(
             .isLength({min: 6})
     ],
     async (req, res) => {
+        debugger
         try {
 
             // console.log('Body: ', req.body)
@@ -67,7 +68,6 @@ router.post(
 
 
             const {email, password} = req.body
-            debugger
             const user = await User.findOne({email})
 
             if(!user) {
@@ -90,7 +90,6 @@ router.post(
             res.json({token, userId: user.id})
 
         } catch (e) {
-            debugger
             res.status(500).json({message: 'Что-то пошло не так, попробуйте снова'})
         }
     })
