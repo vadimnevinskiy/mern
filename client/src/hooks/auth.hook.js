@@ -8,6 +8,7 @@ export const useAuth = () => {
     // Local state for token and userId
     const [token, setToken] = useState(null) //Local state for token
     const [userId, setUserId] = useState(null) //Local state for userId
+    const [ready, setReady] = useState(false)
 
 
     // Login
@@ -39,9 +40,10 @@ export const useAuth = () => {
             // Calling the login() with the received data (token and id)
             login(data.token, data.userId)
         }
+        setReady(true)
     }, [login])
 
 
 
-    return { login, logout, token, userId}
+    return { login, logout, token, userId, ready}
 }
